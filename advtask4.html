@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JS  Tasks output</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    pre {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Advanced  tasks output</h1>
+  <pre id="output">Loading tasks...</pre>
+
+  <script>
+    const output = document.getElementById("output");
+    let result = "";
+
+    function firstPositive(arr) {
+      return arr.find(num => num > 0);
+    }
+    result += "Task 1 - First Positive:\n" + firstPositive([-5, -3, 0, 9, 2]) + "\n\n";
+
+    function findBookByTitle(books, title) {
+      return books.find(book => book.title === title);
+    }
+    const books = [
+      { title: '1984', author: 'George Orwell' },
+      { title: 'To Kill a Mockingbird', author: 'Harper Lee' },
+      { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald' }
+    ];
+    result += "Task 2 - Find Book:\n" + JSON.stringify(findBookByTitle(books, '1984')) + "\n\n";
+
+    function findEmployeeById(employees, id) {
+      return employees.find(emp => emp.id === id);
+    }
+    const employees = [
+      { id: 1, name: 'Alice', position: 'Manager' },
+      { id: 2, name: 'Bob', position: 'Engineer' },
+      { id: 3, name: 'Charlie', position: 'Technician' }
+    ];
+    result += "Task 3 - Find Employee:\n" + JSON.stringify(findEmployeeById(employees, 2)) + "\n\n";
+
+    function isPrime(n) {
+      if (n < 2) return false;
+      for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (n % i === 0) return false;
+      }
+      return true;
+    }
+    function findFirstPrime(arr) {
+      return arr.find(num => isPrime(num));
+    }
+    result += "Task 4 - First Prime:\n" + findFirstPrime([4, 6, 8, 9, 11, 15]) + "\n\n";
+
+    function describePerson(person) {
+      const { firstName, lastName, age } = person;
+      return `${firstName} ${lastName} is ${age} years old.`;
+    }
+    result += "Task 5 - Person Description:\n" + describePerson({ firstName: 'John', lastName: 'Doe', age: 30 }) + "\n\n";
+
+    function squareEvens(arr) {
+      return arr.filter(num => num % 2 === 0).map(num => num * num);
+    }
+    result += "Task 6 - Squares of Evens:\n" + JSON.stringify(squareEvens([1, 2, 3, 4, 5, 6])) + "\n\n";
+
+    
+    function joinWords(separator = ",", ...words) {
+      return words.join(separator);
+    }
+    result += "Task 7 - Join Words:\n" +
+              joinWords("-", "apple", "banana", "cherry") + "\n" +    
+              joinWords(",", "banana", "apple", "cherry") + "\n\n";     
+
+    function mergeUnique(arr1, arr2) {
+      return [...new Set([...arr1, ...arr2])];
+    }
+    result += "Task 8 - Unique Merged:\n" + JSON.stringify(mergeUnique([1,2,3],[3,4,5])) + "\n\n";
+
+    async function fetchTodo() {
+      try {
+        const res = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+        const data = await res.json();
+        result += "Task 9 - Fetch Todo:\n" + JSON.stringify(data, null, 2) + "\n\n";
+        output.textContent = result;
+      } catch (err) {
+        result += "Task 9 - Error: " + err.message + "\n\n";
+        output.textContent = result;
+      }
+    }
+
+    function expensiveProducts(products) {
+      const total = products.reduce((sum, { price }) => sum + price, 0);
+      const avg = total / products.length;
+      return products.filter(p => p.price > avg).map(p => p.name);
+    }
+    const products = [
+      { name: 'Laptop', price: 1000 },
+      { name: 'Phone', price: 500 },
+      { name: 'Tablet', price: 700 }
+    ];
+    result += "Task 10 - Above Avg Products:\n" + JSON.stringify(expensiveProducts(products)) + "\n\n";
+
+    output.textContent = result;
+
+    fetchTodo();
+  </script>
+</body>
+</html>
